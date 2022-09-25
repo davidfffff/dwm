@@ -15,20 +15,31 @@ static char normfgcolor[]           = "#bbbbbb";
 static char selfgcolor[]            = "#eeeeee";
 static char selbordercolor[]        = "#005577";
 static char selbgcolor[]            = "#005577";
-static char col_gray1[]            = "#005577";
-static char col_gray2[]            = "#005577";
-static char col_gray3[]            = "#005577";
+static char dmenu_selected_bg[]      = "#005577";
+static char dmenu_selected_fg[]      = "#005577";
+static char dmenu_unselected_bg[]    = "#005577";
+static char dmenu_unselected_fg[]    = "#005577";
+static char statusbar_bg[]     = "#005577";
+static char statusbar_fg[]     = "#005577";
+static char tagbar_selected_bg[]    = "#005577";
+static char tagbar_selected_fg[]    = "#005577";
+static char tagbar_unselected_bg[]  = "#005577";
+static char tagbar_unselected_fg[]  = "#005577";
+static char infobar_selected_bg[]   = "#005577";
+static char infobar_selected_fg[]   = "#005577";
+static char infobar_unselected_bg[]   = "#005577";
+static char infobar_unselected_fg[]   = "#005577";
 static char col_gray4[]            = "#005577";
 static char col_cyan[]            = "#005577";
 static char *colors[][3] = {
 	       /*               fg           bg           border   */
 	       [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
 	       [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
-	       [SchemeStatus]  = { col_gray3, col_gray1,  "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
-     	       [SchemeTagsSel]  = { col_gray4, col_cyan,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
-	       [SchemeTagsNorm]  = { col_gray3, col_gray1,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
-	       [SchemeInfoSel]  = { col_gray4, col_cyan,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
-	       [SchemeInfoNorm]  = { col_gray3, col_gray1,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
+	       [SchemeStatus]  = { statusbar_fg, statusbar_bg,  "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
+     	       [SchemeTagsSel]  = { tagbar_selected_fg, tagbar_selected_bg,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
+	       [SchemeTagsNorm]  = { tagbar_unselected_fg, tagbar_unselected_bg,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
+	       [SchemeInfoSel]  = { infobar_selected_fg, infobar_selected_bg,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
+	       [SchemeInfoNorm]  = { infobar_unselected_fg, infobar_unselected_bg,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
 };
 
 /* tagging */
@@ -70,7 +81,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", dmenu_unselected_bg, "-nf", dmenu_unselected_fg, "-sb", dmenu_selected_bg, "-sf", dmenu_selected_fg, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
 
 
@@ -86,6 +97,20 @@ ResourcePref resources[] = {
 			{ "selbgcolor",         STRING,  &selbgcolor },
 			{ "selbordercolor",     STRING,  &selbordercolor },
 			{ "selfgcolor",         STRING,  &selfgcolor },
+			{ "dmenu_selected_bg",  STRING,  &dmenu_selected_bg },
+			{ "dmenu_selected_fg",  STRING,  &dmenu_selected_fg },
+			{ "dmenu_unselected_bg",  STRING,  &dmenu_unselected_bg },
+			{ "dmenu_unselected_fg",  STRING,  &dmenu_unselected_fg },
+			{ "statusbar_bg",       STRING,  &statusbar_bg },
+			{ "statusbar_fg",       STRING,  &statusbar_fg },
+			{ "tagbar_selected_bg", STRING,  &tagbar_selected_bg },
+			{ "tagbar_selected_fg", STRING,  &tagbar_selected_fg },
+			{ "tagbar_unselected_bg", STRING,  &tagbar_unselected_bg },
+			{ "tagbar_unselected_fg", STRING,  &tagbar_unselected_fg },
+			{ "infobar_selected_bg", STRING,  &infobar_selected_bg },
+			{ "infobar_selected_fg", STRING,  &infobar_selected_fg },
+			{ "infobar_unselected_bg", STRING,  &infobar_unselected_bg },
+			{ "infobar_unselected_fg", STRING,  &infobar_unselected_fg },
 			{ "borderpx",          	INTEGER, &borderpx },
 			{ "snap",          		INTEGER, &snap },
 			{ "showbar",          	INTEGER, &showbar },
@@ -99,7 +124,7 @@ ResourcePref resources[] = {
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -107,7 +132,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
+	{ MODKEY|ShiftMask,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },

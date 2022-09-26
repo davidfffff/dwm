@@ -29,8 +29,6 @@ static char infobar_selected_bg[]   = "#005577";
 static char infobar_selected_fg[]   = "#005577";
 static char infobar_unselected_bg[]   = "#005577";
 static char infobar_unselected_fg[]   = "#005577";
-static char col_gray4[]            = "#005577";
-static char col_cyan[]            = "#005577";
 static char *colors[][3] = {
 	       /*               fg           bg           border   */
 	       [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },

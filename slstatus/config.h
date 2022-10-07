@@ -65,13 +65,17 @@ static const char unknown_str[] = "n/a";
  */
 
 #define SEPARATOR { separator, "  ",           NULL }, 
+#define FG "^c#a9b1d6^"
+#define RED "^c#f7768e^"
+#define GREEN "^c#9ece6a^"
+#define BLUE "^c#7aa2f7^" 
 
 static const struct arg args[] = {
 	/* function format          argument */
-	{ cpu_perc, " CPU %s%%",     NULL },
+	{ cpu_perc, GREEN" "FG"CPU %s%%",     NULL },
 	SEPARATOR	
-	{ ram_used, " RAM %s",       NULL },
+	{ ram_used, RED" "FG"RAM %s",       NULL },
 	//{ ram_total,"/%s",          NULL },
 	SEPARATOR
-	{ datetime, " %s",           "%H:%M " },
+	{ datetime, BLUE" "FG"%s",           "%H:%M " },
 };

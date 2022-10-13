@@ -64,18 +64,28 @@ static const char unknown_str[] = "n/a";
  * wifi_essid          WiFi ESSID                      interface name (wlan0)
  */
 
-#define SEPARATOR { separator, "  ",           NULL }, 
+#define SEPARATOR { separator, "  ", NULL }, 
 #define FG "^c#a9b1d6^"
 #define RED "^c#f7768e^"
+#define YELLOW "^c#e0af68^"
 #define GREEN "^c#9ece6a^"
 #define BLUE "^c#7aa2f7^" 
+#define PURPLE "^c#bb9af7^"
 
 static const struct arg args[] = {
-	/* function format          argument */
-	{ cpu_perc, GREEN" "FG"CPU %s%%",     NULL },
+	/* function format                     argument */
+	{ cpu_perc, BLUE" "FG"CPU %s%%",     NULL },
 	SEPARATOR	
-	{ ram_used, RED" "FG"RAM %s",       NULL },
+	{ ram_used, PURPLE" "FG"RAM %s",         NULL },
 	//{ ram_total,"/%s",          NULL },
+	SEPARATOR
+	{run_command, "%s ",                 "~/net.sh"},
+	//{netspeed_rx, "%sB/s", "eth0"},	
+	SEPARATOR
+	{run_command, "%s",                 "~/vol.sh"},
+	SEPARATOR
+	{run_command, "%s  ",                 "~/bat.sh"},
+	{battery_perc, FG"%s%%",                   "BAT0"},
 	SEPARATOR
 	{ datetime, BLUE" "FG"%s",           "%H:%M " },
 };

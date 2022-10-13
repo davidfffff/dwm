@@ -16,8 +16,8 @@ icon_discharge(){
 	elif [ "$PERC" -gt 95 ] && [ "$PERC" -le 100 ]; then
 		ICON="^c#9ece6a^ "
 	fi
-	echo $ICON
-	#date
+	echo ^c#2ac3de^$ICON" "^c#a9b1d6^$PERC%
+
 }
 
 icon_charging(){
@@ -38,7 +38,7 @@ icon_charging(){
 		ICON=" "
 		;;
 	esac
-	echo ^c#2ac3de^$ICON
+	echo ^c#2ac3de^$ICON" "^c#a9b1d6^$PERC%
 }
 
 case $STAT in
@@ -46,7 +46,6 @@ case $STAT in
 	icon_charging
 	;;
 	*)
-	#echo "hello"
 	icon_discharge
 	;;
 esac
